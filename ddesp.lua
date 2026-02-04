@@ -155,8 +155,8 @@ local function createEsp(player)
         }),
         -- Distance text
         distance = create("Text", {
-            Color = ESP_SETTINGS.DistanceColor,
-            Size = 11,
+            Color = ESP_SETTINGS.NameColor,
+            Size = 13,
             Outline = true,
             Center = true,
             Font = Drawing.Fonts.Plex
@@ -453,7 +453,7 @@ local function updateEsp()
                         local dist = (camera.CFrame.Position - rootPart.Position).Magnitude
                         esp.distance.Text = string.format("[%dm]", math.floor(dist))
                         esp.distance.Position = Vector2.new(boxPosition.X + boxSize.X / 2, boxPosition.Y + boxSize.Y + 2)
-                        esp.distance.Color = ESP_SETTINGS.DistanceColor
+                        esp.distance.Color = ESP_SETTINGS.NameColor
                         esp.distance.Visible = true
                     else
                         esp.distance.Visible = false
