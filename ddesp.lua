@@ -535,7 +535,7 @@ local function updateEsp()
                     end
 
                     if ESP_SETTINGS.ShowWeapon then
-                        local gunFolder = player:FindFirstChild("Gun")
+                        local gunFolder = character:FindFirstChild("Gun")
                         if gunFolder then
                             local gunName = gunFolder:FindFirstChild("GunName")
                             if gunName and gunName:IsA("StringValue") and gunName.Value ~= "" then
