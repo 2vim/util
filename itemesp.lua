@@ -125,9 +125,9 @@ local function updateItemEsp()
                 local distance = (camera.CFrame.Position - position).Magnitude
                 
                 -- Calculate screen size based on distance
-                local scaleFactor = 1 / (distance * 0.1)
-                local boxWidth = math.clamp(itemSize.X * scaleFactor * 100, 20, 100)
-                local boxHeight = math.clamp(itemSize.Y * scaleFactor * 100, 20, 100)
+                local scaleFactor = math.clamp(500 / distance, 0.1, 1)
+                local boxWidth = math.clamp(itemSize.X * scaleFactor * 20, 5, 40)
+                local boxHeight = math.clamp(itemSize.Y * scaleFactor * 20, 5, 40)
                 
                 local boxSize = Vector2.new(math.floor(boxWidth), math.floor(boxHeight))
                 local boxPosition = Vector2.new(
