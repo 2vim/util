@@ -72,9 +72,9 @@ local ESP_SETTINGS = {
     -- Distance text
     DistanceColor = Color3.fromRGB(200, 200, 200),
     
-    -- Weapon text (future feature)
+    -- Weapon text (testing)
     ShowWeapon = false,
-    WeaponColor = Color3.fromRGB(255, 200, 100),
+    WeaponColor = Color3.fromRGB(255, 255, 255),
 }
 
 local function create(class, properties)
@@ -161,6 +161,13 @@ local function createEsp(player)
             Center = true,
             Font = Drawing.Fonts.Plex
         }),
+        weapon = create("Text", {
+            Color = ESP_SETTINGS.WeaponColor,
+            Size = 11,
+            Outline = true,
+            Center = true,
+            Font = Drawing.Fonts.Plex
+        }),
         -- Head dot (CS2 signature)
         headDot = create("Circle", {
             Color = ESP_SETTINGS.HeadDotColor,
@@ -241,6 +248,7 @@ local function hideAllEsp(esp)
     esp.tracer.Visible = false
     esp.headDot.Visible = false
     esp.headDotOutline.Visible = false
+    esp.weapon.Visible = false
     
     for _, line in ipairs(esp.boxLines) do
         line.Visible = false
@@ -302,7 +310,7 @@ local function updateEsp()
                     else
                         esp.name.Visible = false
                     end
-          
+
                     if ESP_SETTINGS.ShowBox then
                         if ESP_SETTINGS.BoxType == "2D" then
                             -- Clean 2D box
@@ -393,10 +401,12 @@ local function updateEsp()
                             -- Update colors and show
                             for i = 1, 8 do
                                 lines[i].Color = ESP_SETTINGS.BoxColor
+                                lines[i].Thickness = 2
                                 lines[i].Visible = true
                             end
                             for i = 9, 16 do
                                 lines[i].Color = ESP_SETTINGS.BoxOutlineColor
+                                lines[i].Thickness = 4
                                 lines[i].Visible = true
                             end
                             
@@ -524,6 +534,26 @@ local function updateEsp()
                         end
                     end
 
+                    if ESP_SETTINGS.ShowWeapon then
+                        local gunFolder = player:FindFirstChild("Gun")
+                        if gunFolder then
+                            local gunName = gunFolder:FindFirstChild("GunName")
+                            if gunName and gunName:IsA("StringValue") and gunName.Value ~= "" then
+                                local weaponYOffset = ESP_SETTINGS.ShowDistance and 15 or 2
+                                esp.weapon.Text = gunName.Value
+                                esp.weapon.Position = Vector2.new(boxPosition.X + boxSize.X / 2, boxPosition.Y + boxSize.Y + weaponYOffset)
+                                esp.weapon.Color = ESP_SETTINGS.WeaponColor
+                                esp.weapon.Visible = true
+                            else
+                                esp.weapon.Visible = false
+                            end
+                        else
+                            esp.weapon.Visible = false
+                        end
+                    else
+                        esp.weapon.Visible = false
+                    end
+
                     if ESP_SETTINGS.ShowTracer then
                         local tracerY
                         if ESP_SETTINGS.TracerPosition == "Top" then
@@ -538,6 +568,7 @@ local function updateEsp()
                         esp.tracer.To = Vector2.new(boxPosition.X + boxSize.X / 2, boxPosition.Y + boxSize.Y)
                         esp.tracer.Color = ESP_SETTINGS.TracerColor
                         esp.tracer.Thickness = ESP_SETTINGS.TracerThickness
+                        esp.tracer.Transparency = 1
                         esp.tracer.Visible = true
                     else
                         esp.tracer.Visible = false
