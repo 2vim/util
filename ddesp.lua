@@ -145,7 +145,7 @@ local function createEsp(player)
             Thickness = 2,
             Transparency = 1
         }),
-        -- Health text (CS2 style shows HP number)
+        -- Health text
         healthText = create("Text", {
             Color = Color3.new(1, 1, 1),
             Size = 10,
@@ -163,7 +163,7 @@ local function createEsp(player)
         }),
         weapon = create("Text", {
             Color = ESP_SETTINGS.WeaponColor,
-            Size = 11,
+            Size = 13,
             Outline = true,
             Center = true,
             Font = Drawing.Fonts.Plex
