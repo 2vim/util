@@ -34,8 +34,8 @@ local bonesR6 = {
 
 local ESP_SETTINGS = {
     BoxOutlineColor = Color3.fromRGB(0, 0, 0),
-    BoxColor = Color3.fromRGB(0, 255, 170),
-    EnemyBoxColor = Color3.fromRGB(255, 55, 85),
+    BoxColor = Color3.fromRGB(255, 255, 255),
+    EnemyBoxColor = Color3.fromRGB(255, 255, 255),
     
     NameColor = Color3.fromRGB(255, 255, 255),
     NameOutlineColor = Color3.fromRGB(0, 0, 0),
@@ -109,7 +109,7 @@ local function createEsp(player)
         -- Box outline (thicker for that CS2 look)
         boxOutline = create("Square", {
             Color = ESP_SETTINGS.BoxOutlineColor,
-            Thickness = 1,
+            Thickness = 0,
             Filled = false,
             Transparency = 1
         }),
@@ -136,7 +136,7 @@ local function createEsp(player)
         }),
         -- Health outline
         healthOutline = create("Line", {
-            Thickness = 5,
+            Thickness = 0,
             Color = ESP_SETTINGS.HealthOutlineColor,
             Transparency = 1
         }),
@@ -164,7 +164,7 @@ local function createEsp(player)
         weapon = create("Text", {
             Color = ESP_SETTINGS.WeaponColor,
             Size = 13,
-            Outline = true,
+            Outline = false,
             Center = true,
             Font = Drawing.Fonts.Plex
         }),
