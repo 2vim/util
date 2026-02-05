@@ -29,10 +29,11 @@ local function create(class, properties)
     return drawing
 end
 
-local function createItemEsp(item)
+local function createItemEsp(item, label)
     if cache[item] then return end
     
     local esp = {
+        label = label or nil,
         boxOutline = create("Square", {
             Color = ITEM_ESP_SETTINGS.BoxOutlineColor,
             Thickness = 3,
@@ -137,7 +138,11 @@ local function updateItemEsp()
                 
                 if ITEM_ESP_SETTINGS.ShowName then
                     esp.name.Visible = true
-                    esp.name.Text = item.Name
+                    local displayText = item.Name
+                    if esp.label then
+                        displayText = displayText .. " [" .. esp.label .. "]"
+                    end
+                    esp.name.Text = displayText
                     esp.name.Position = Vector2.new(boxPosition.X + boxSize.X / 2, boxPosition.Y - 15)
                     esp.name.Color = ITEM_ESP_SETTINGS.NameColor
                 else
@@ -174,11 +179,17 @@ local function updateItemEsp()
     end
 end
 
--- Function to add multiple items at once
-local function addItems(items)
+local function addItems(items, label)
     for _, item in ipairs(items) do
-        if item:IsA("BasePart") or item:IsA("Model") then
-            createItemEsp(item)
+        if typeof(item) == "table" then
+            -- Format: {item, "LABEL"}
+            local obj = item[1]
+            local itemLabel = item[2]
+            if obj and (obj:IsA("BasePart") or obj:IsA("Model")) then
+                createItemEsp(obj, itemLabel)
+            end
+        elseif item:IsA("BasePart") or item:IsA("Model") then
+            createItemEsp(item, label)
         end
     end
 end
