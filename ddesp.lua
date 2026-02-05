@@ -109,7 +109,7 @@ local function createEsp(player)
         -- Box outline (thicker for that CS2 look)
         boxOutline = create("Square", {
             Color = ESP_SETTINGS.BoxOutlineColor,
-            Thickness = 3,
+            Thickness = 1,
             Filled = false,
             Transparency = 1
         }),
@@ -123,7 +123,7 @@ local function createEsp(player)
         -- Name with clean font
         name = create("Text", {
             Color = ESP_SETTINGS.NameColor,
-            Outline = true,
+            Outline = false,
             Center = true,
             Size = 13,
             Font = Drawing.Fonts.Plex
@@ -149,7 +149,7 @@ local function createEsp(player)
         healthText = create("Text", {
             Color = Color3.new(1, 1, 1),
             Size = 10,
-            Outline = true,
+            Outline = false,
             Center = true,
             Font = Drawing.Fonts.Plex
         }),
@@ -157,7 +157,7 @@ local function createEsp(player)
         distance = create("Text", {
             Color = ESP_SETTINGS.NameColor,
             Size = 13,
-            Outline = true,
+            Outline = false,
             Center = true,
             Font = Drawing.Fonts.Plex
         }),
